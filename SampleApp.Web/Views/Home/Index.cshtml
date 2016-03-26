@@ -1,0 +1,40 @@
+﻿@model IList<SampleApp.Web.ViewModels.MarketingLeadViewModel>
+
+@{
+    ViewBag.Title = "Leads";
+}
+<hr />
+<div class="row">
+    <section class="col-sm-12">
+        <form class="form-inline" method="post" action="home/addlead">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="FirstName">First Name</label>
+                <input name="FirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="LastName">Last Name</label>
+                <input name="LastName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input name="Email" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-default">Add Lead</button>
+        </form>
+    </section>
+</div>
+<hr />
+<div class="row">
+    <section id="lead-list">
+        @Html.Partial("_LeadListTemplate", Model)
+    </section>
+</div>
+
+@section scripts{
+    <script>
+        function getLeads() {
+            $("#lead-list").load("home/getleads");
+        }
+    </script>
+}
