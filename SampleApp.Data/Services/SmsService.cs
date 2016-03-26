@@ -1,6 +1,7 @@
 ﻿namespace SampleApp.Data.Services
 {
     using Microsoft.AspNet.Identity;
+    using System.Configuration;
     using System.Threading.Tasks;
     using Twilio;
 
@@ -8,9 +9,9 @@
     {
         public Task SendAsync(IdentityMessage message)
         {
-            const string accountSid = "AC988153885438a5ac2b9ba3f6732a8350";
-            const string authToken = "d087a79c362832361bc697b1b95bba9a";
-            const string phoneNumber = "781-462-1289";
+            string accountSid = ConfigurationManager.AppSettings["Twilio:AccountSID"];
+            string authToken = ConfigurationManager.AppSettings["Twilio:AuthToken"];
+            string phoneNumber = ConfigurationManager.AppSettings["Twilio:PhoneNumber"];
 
             var twilioRestClient = new TwilioRestClient(accountSid, authToken);
             twilioRestClient.SendMessage(phoneNumber, message.Destination, message.Body);
